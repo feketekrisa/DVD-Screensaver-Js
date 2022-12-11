@@ -28,7 +28,9 @@ document.addEventListener("DOMContentLoaded", () => {
 		setInterval(function(){
 			let screenX = window.innerWidth, screenY = window.innerHeight;
 			let display = document.createElement("pre");//"<div><b>X: "+posX+' Y: '+posY+'<br />innerWidth: '+screenX+' innerHeight: '+screenY+' direction: '+dir+'</b></div>';
-			display.style.fontSize = '16px';
+			let relativeSpeedX = Math.floor(screenX*0.0035);
+			let relativeSpeedY = relativeSpeedX;
+			display.style.fontSize = '1.25em';
 			display.style.fontFamily = 'Lucida Console';
 			display.id = 'display';
 			display.textContent = "X: "+posX+' Y: '+posY+'\nInnerWidth: '+screenX+'\nInnerHeight: '+screenY+'\nDirection: '+dir+'\nCorner touches: '+ cornercounter;
@@ -41,22 +43,24 @@ document.addEventListener("DOMContentLoaded", () => {
 				document.getElementById('body').appendChild(display);
 				document.getElementById('display').style.display = 'none';
 				started = true;
+				cornercounter--;
+				console.log(relativeSpeedX + ' - ' + relativeSpeedY);
 			}else{
 				document.getElementById('display').textContent = "X: "+posX+' Y: '+posY+'\nInnerWidth: '+screenX+'\nInnerHeight: '+screenY+'\nDirection: '+dir+'\nCorner touches: '+ cornercounter;
 			}
 			//console.log(display);
 			switch(dir){
 				case 'br':
-					posX += 5, posY += 5;
+					posX += relativeSpeedX, posY += relativeSpeedY;
 					break;
 				case 'tr':
-					posX += 5, posY += -5;
+					posX += relativeSpeedX, posY += -relativeSpeedY;
 					break;
 				case 'tl':
-					posX += -5, posY -= 5;
+					posX += -relativeSpeedX, posY -= relativeSpeedY;
 					break;
 				case 'bl':
-					posX += -5, posY += 5;
+					posX += -relativeSpeedX, posY += relativeSpeedY;
 			}
 
 			if(posY <= 0){
