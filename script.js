@@ -21,6 +21,8 @@ document.addEventListener("DOMContentLoaded", () => {
 	  imgMovement(){
 		let posX = 0, posY = 0, width = this.width, height = this.height;
 		let dir = 'br';
+		let started = false;
+		let cornercounter = 0;
 		let kep = document.getElementById('dvd-svg');
 
 		setInterval(function(){
@@ -29,11 +31,19 @@ document.addEventListener("DOMContentLoaded", () => {
 			display.style.fontSize = '16px';
 			display.style.fontFamily = 'Lucida Console';
 			display.id = 'display';
-			display.textContent = "X: "+posX+' Y: '+posY+'\nInnerWidth: '+screenX+'\nInnerHeight: '+screenY+'\nDirection: '+dir+'';
-			if(posX == 0 && posY == 0){
+			display.textContent = "X: "+posX+' Y: '+posY+'\nInnerWidth: '+screenX+'\nInnerHeight: '+screenY+'\nDirection: '+dir+'\nCorner touches: '+ cornercounter;
+			if((posX == 0 && posY == 0) || (posX+width == screenX && posY == 0)
+			|| (posX == 0 && posY+height == screenY) || (posX+width == screenX &&posY+height == screenY)){
+				cornercounter++;
+			}
+
+			if(started == false){
 				document.getElementById('body').appendChild(display);
 				document.getElementById('display').style.display = 'none';
-			}else document.getElementById('display').textContent = "X: "+posX+' Y: '+posY+'\nInnerWidth: '+screenX+'\nInnerHeight: '+screenY+'\nDirection: '+dir+'';
+				started = true;
+			}else{
+				document.getElementById('display').textContent = "X: "+posX+' Y: '+posY+'\nInnerWidth: '+screenX+'\nInnerHeight: '+screenY+'\nDirection: '+dir+'\nCorner touches: '+ cornercounter;
+			}
 			//console.log(display);
 			switch(dir){
 				case 'br':
@@ -101,6 +111,7 @@ document.addEventListener("DOMContentLoaded", () => {
 				['invert(32%) sepia(67%) saturate(3108%) hue-rotate(358deg) brightness(99%) contrast(114%)']]
 				let svg = document.getElementById("dvd-svg");
 				let randomColor = Math.floor(Math.random() * 16) + 1;
+				//console.log(randomColor);
 				svg.style.filter = `${colors[randomColor]}`;
 			}
 
