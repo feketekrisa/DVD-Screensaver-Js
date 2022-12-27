@@ -75,7 +75,6 @@ document.addEventListener("DOMContentLoaded", () => {
 					dir = 'tl';
 				}else if(dir == 'br'){
 					dir = 'tr';
-					
 				}
 				changeColorIMG();
 			}
@@ -114,8 +113,8 @@ document.addEventListener("DOMContentLoaded", () => {
 				['invert(59%) sepia(11%) saturate(6197%) hue-rotate(359deg) brightness(103%) contrast(107%)'],
 				['invert(32%) sepia(67%) saturate(3108%) hue-rotate(358deg) brightness(99%) contrast(114%)']]
 				let svg = document.getElementById("dvd-svg");
-				let randomColor = Math.floor(Math.random() * 16) + 1;
-				//console.log(randomColor);
+				let randomColor = Math.floor(Math.random() * 16);
+				console.log(randomColor);
 				svg.style.filter = `${colors[randomColor]}`;
 			}
 
